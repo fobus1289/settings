@@ -1,0 +1,4 @@
+!.gitignore
+.env
+dev.docker-compose.yml
+docker/postgres/pgdata

@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  %service_name%-db:
+    image: postgres:16-alpine3.18
+    restart: always
+    container_name: ${APP_DB_CONTAINER_NAME}
+    environment:
+      POSTGRES_USER: ${APP_DB_USERNAME}
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
+    volumes:
+      - ./docker/postgres/entrypoint.d:/docker-entrypoint-initdb.d
+      - ./docker/postgres/pgdata:/var/lib/postgresql/data
+    ports:
+      - "${APP_DB_PORT}:${APP_DB_PORT}"
+    networks:
+      - stack
+
+networks:
+  stack:
+    driver: bridge
+
+volumes:
+  pgdata:
+    driver: local
